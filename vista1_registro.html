@@ -1,0 +1,175 @@
+<!DOCTYPE html>  
+<html xmlns:th="http://www.thymeleaf.org">  
+<head>  
+<title>Registro de Quinchos
+  </title>  
+    <!-- Bootstrap CSS -->  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <!-- Estilos personalizados -->  
+    <style>  
+        body {  
+            background-image: url('https://example.com/tu-imagen-de-fondo.jpg'); /* Cambia la URL por la imagen de fondo que desees */  
+            background-size: cover;  
+            background-position: center;  
+            color: #fff; /* Cambia el color del texto a blanco para mejor contraste */  
+        }  
+        .container {  
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para el contenedor */  
+            border-radius: 10px;  
+            padding: 30px;  
+            margin-top: 50px;  
+        }  
+        .btn-primary {  
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave para el botón */  
+        }  
+        .btn-primary:hover {  
+            background-color: #0056b3; /* Color del botón al pasar el cursor */  
+            transform: translateY(-2px); /* Efecto de movimiento hacia arriba */  
+        }  
+        .form-control {  
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-blanco para los campos del formulario */  
+            color: #333; /* Color del texto en los campos */  
+        }  
+        .form-control::placeholder {  
+            color: #aaa; /* Color del placeholder */  
+        }  
+        .invalid-feedback {  
+            color: #ffcccc; /* Color de los mensajes de error */  
+        }  
+        .hidden {  
+            display: none; /* Clase para ocultar elementos */  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+    <h2 class="text-center mb-4"> Quinchos Club Buenos Aires </h2> 
+      
+
+   <h4 class="text-align: left; mb-4">Registrate </h4> 
+ <form action="#" th:action="@{/register}" th:object="${usuario}" method="post" class="needs-validation" novalidate>  
+            <div class="form-group">  
+                <label for="nombre">Nombre:</label>  
+                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Ingresa tu nombre" required>  
+                <div class="invalid-feedback">Por favor ingresa un nombre válido.</div>  
+            </div>  
+            <div class="form-group">  
+                <label for="apellido">Apellido:</label>  
+                <input type="text" class="form-control" id="apellido" th:field="*{apellido}" placeholder="Ingresa tu apellido" required>  
+                <div class="invalid-feedback">Por favor ingresa un apellido válido.</div>  
+            </div>  
+            <div class="form-group">  
+                <label for="telefono">Teléfono:</label>  
+                <input type="tel" class="form-control" id="telefono" th:field="*{telefono}" placeholder="Ingresa tu número de teléfono" required>  
+                <div class="invalid-feedback">Por favor ingresa un número de teléfono válido.</div>  
+            </div>  
+            <div class="form-group">  
+                <label for="email">Correo Electrónico:</label>  
+                <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Ingresa tu correo electrónico" required>  
+                <div class="invalid-feedback">Por favor ingresa un correo electrónico válido.</div>  
+            </div>  
+            <div class="form-group">  
+                <label for="dni">DNI:</label>  
+                <input type="text" class="form-control" id="dni" th:field="*{dni}" placeholder="Ingresa tu DNI" required>  
+                <div class="invalid-feedback">Por favor ingresa un DNI válido.</div>  
+            </div>  
+            <fieldset class="form-group">  
+                <legend class="col-form-label pt-0">Tipo:</legend>  
+                <div class="form-check">  
+                    <input class="form-check-input" type="radio" name="tipo" id="propietario" th:field="*{tipo}" value="propietario" required onclick="toggleOwnerFields()">  
+                    <label class="form-check-label" for="propietario">Propietario</label>  
+                </div>  
+                <div class="form-check">  
+                    <input class="form-check-input" type="radio" name="tipo" id="inquilino" th:field="*{tipo}" value="inquilino" onclick="hideOwnerFields()">  
+                    <label class="form-check-label" for="inquilino">Inquilino</label>  
+                </div>  
+                <div class="form-check">  
+                    <input class="form-check-input" type="radio" name="tipo" id="administrador" th:field="*{tipo}" value="administrador" onclick="hideOwnerFields()">  
+                    <label class="form-check-label" for="administrador">Administrador</label>  
+                </div>  
+                <div class="invalid-feedback">Por favor selecciona un tipo de usuario.</div>  
+            </fieldset>  
+
+            <!-- Campos adicionales para propietarios -->  
+            <div id="ownerFields" class="hidden">  
+                <div class="form-group">  
+                    <label for="ubicacion">Ubicación de la Propiedad:</label>  
+                    <input type="text" class="form-control" id="ubicacion" th:field="*{ubicacion}" placeholder="Ingresa la ubicación de la propiedad" required>  
+                    <div class="invalid-feedback">Por favor ingresa una ubicación válida.</div>  
+                </div>  
+                <div class="form-group">  
+                    <label for="descripcion">Descripción de la Propiedad:</label>  
+                    <textarea class="form-control" id="descripcion" th:field="*{descripcion}" placeholder="Ingresa la descripción de la propiedad" required></textarea>  
+                    <div class="invalid-feedback">Por favor ingresa una descripción válida.</div>  
+                </div>  
+                <div class="form-group">  
+                    <label for="fotos">Fotos de la Propiedad:</label>  
+                    <input type="file" class="form-control" id="fotos" th:field="*{fotos}" multiple required>  
+                    <div class="invalid-feedback">Por favor sube al menos una foto.</div>  
+                </div>  
+                <div class="form-group">  
+                    <label for="instagram">Cuenta de Instagram:</label>  
+                    <input type="url" class="form-control" id="instagram" th:field="*{instagram}" placeholder="Ingresa tu cuenta de Instagram">  
+                </div>  
+                <div class="form-group">  
+                    <label for="facebook">Cuenta de Facebook:</label>  
+                    <input type="url" class="form-control" id="facebook" th:field="*{facebook}" placeholder="Ingresa tu cuenta de Facebook">  
+                </div>  
+                <div class="form-group">  
+                    <label for="cuentaX">Cuenta X:</label>  
+                    <input type="url" class="form-control" id="cuentaX" th:field="*{cuentaX}" placeholder="Ingresa tu cuenta en X (ex Twitter)">  
+                </div>  
+            </div>  
+
+            <div>  
+                <button type="submit" class="btn btn-primary btn-block">Registrar</button>  
+            </div>  
+        </form>  
+        <div class="text-center mt-3">  
+            <a href="/login" class="text-white">Ya tengo una cuenta</a>  
+        </div>  
+    </div>  
+
+    <!-- Bootstrap JS and dependencies -->  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>  
+    <script>  
+        // JavaScript para la validación de formularios  
+        (function() {  
+            'use strict';  
+            window.addEventListener('load', function() {  
+                var forms = document.getElementsByClassName('needs-validation');  
+                for (var i = 0; i < forms.length; i++) {  
+                    forms[i].addEventListener('submit', function(event) {  
+                        if (this.checkValidity() === false) {  
+                            event.preventDefault();  
+                            event.stopPropagation();  
+                        }  
+                        this.classList.add('was-validated');  
+                    }, false);  
+                }  
+            }, false);  
+        })();  
+
+        // Función para mostrar u ocultar campos adicionales  
+        function toggleOwnerFields() {  
+            document.getElementById('ownerFields').classList.remove('hidden');  
+        }  
+
+        function hideOwnerFields() {  
+            document.getElementById('ownerFields').classList.add('hidden');  
+        }  
+    </script>  
+</body>  
+</html>  
+
+////// Se agregaron los campos para "Nombre", "Apellido", "Teléfono", "Correo Electrónico" y "DNI". //////
+//////Cada uno tiene su respectivo th:field y validación.////////
+
+////Se añaadió selección de Tipo un grupo de opciones para seleccionar entre "Propietario", "Inquilino" y "Administrador".///// 
+////permite al usuario recibir retroalimentación inmediata si no se selecciona ninguna opción.//////
+
+////Validaciones: Se actualizaron los mensajes de retroalimentación invalid-feedback para cada nuevo campo y combo///// 
+
+///Notas////
+////Cambia la URL de la imagen de fondo por una imagen accesible.//////
