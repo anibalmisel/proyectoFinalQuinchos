@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">  
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>LISTADO DE PROPIEDADES</div>
+        <div>            
+            
+            <table border="1" width="60%">
+                <thead>
+                    <tr>
+                        <th width="30%">Nombre </th>
+                        <th width="30%">Descripcion</th>
+                        <th width="30%"></th>
+                        <th width="20%"></th>
+                        <th width="20%"></th>
+                        <th width="20%"></th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    <tr th:each="propiedad: ${listaDePropiedades}">
+                        <td th:text="${propiedad.nombre}"></td>
+                        <td th:text="${propiedad.descripcion}"></td>
+                        <td>
+                            <a <!--th:href="@{/propiedad/modificarPropiedad/{id}(id=${propiedad.id})}"-->MODIFICAR</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/propiedad/eliminar/{id}(id=${propiedad.id})}">ELIMINAR</a>            
+                        </td>            
+                    </tr>
+                </tbody>
+                </thead>
+                <tbody>
+                    

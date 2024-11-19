@@ -5,7 +5,7 @@
 package egg.proyectofinal.Controler;
 
 
-import egg.proyectofinal.model.Servicio;
+import egg.proyectofinal.model.ServicioEli;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class ServicioControler {
     @GetMapping("/inicio")
     public String inicio(Model model){
         //obtener los servicios
-        Servicio s = new Servicio();
+        ServicioEli s = new ServicioEli();
         s.setDescripcion("wifi");
         s.setValor(Double.valueOf("100.5"));
         model.addAttribute("Servicio1", s);
